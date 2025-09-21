@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flores Amarillas - 21 de Septiembre</title>
+    <title>Girasoles Amarillos - 21 de Septiembre</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
       body {
         margin: 0;
         font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(to bottom, #000000, #1a1a1a);
+        background: radial-gradient(circle at center, #0d0d0d, #000);
         text-align: center;
         color: #ffd700;
-        overflow-x: hidden;
+        overflow: hidden;
       }
 
       header {
@@ -26,119 +27,16 @@
           text-shadow: 0 0 10px #ffd700;
         }
         to {
-          text-shadow: 0 0 20px #ffff99, 0 0 30px #ffd700;
+          text-shadow: 0 0 25px #ffff99, 0 0 40px #ffd700;
         }
       }
 
-      /* CONTENEDOR DE LA FLOR */
-      .flor {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        margin: 40px auto;
-        animation: flotar 3s ease-in-out infinite alternate;
+      svg {
+        width: 300px;
+        height: auto;
+        margin-top: 20px;
       }
 
-      @keyframes flotar {
-        from {
-          transform: translateY(0px);
-        }
-        to {
-          transform: translateY(-15px);
-        }
-      }
-
-      /* PÉTALOS */
-      .petalo {
-        position: absolute;
-        width: 80px;
-        height: 120px;
-        background: #ffd700;
-        border-radius: 50%;
-        top: 40px;
-        left: 60px;
-        transform-origin: bottom center;
-        box-shadow: 0 0 15px rgba(255, 223, 0, 0.7);
-      }
-
-      .petalo:nth-child(1) {
-        transform: rotate(0deg) translateY(-60px);
-      }
-      .petalo:nth-child(2) {
-        transform: rotate(45deg) translateY(-60px);
-      }
-      .petalo:nth-child(3) {
-        transform: rotate(90deg) translateY(-60px);
-      }
-      .petalo:nth-child(4) {
-        transform: rotate(135deg) translateY(-60px);
-      }
-      .petalo:nth-child(5) {
-        transform: rotate(180deg) translateY(-60px);
-      }
-      .petalo:nth-child(6) {
-        transform: rotate(225deg) translateY(-60px);
-      }
-      .petalo:nth-child(7) {
-        transform: rotate(270deg) translateY(-60px);
-      }
-      .petalo:nth-child(8) {
-        transform: rotate(315deg) translateY(-60px);
-      }
-
-      /* CENTRO DE LA FLOR */
-      .centro {
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        background: #5b3b00;
-        border-radius: 50%;
-        top: 50px;
-        left: 50px;
-        box-shadow: inset 0 0 20px #2d1a00;
-      }
-
-      /* TALLO */
-      .tallo {
-        width: 20px;
-        height: 250px;
-        background: green;
-        margin: auto;
-        border-radius: 10px;
-        animation: crecer 2s ease-out forwards;
-      }
-
-      @keyframes crecer {
-        from {
-          height: 0;
-        }
-        to {
-          height: 250px;
-        }
-      }
-
-      /* HOJAS */
-      .hoja {
-        position: absolute;
-        width: 100px;
-        height: 50px;
-        background: green;
-        border-radius: 50%;
-        top: 100px;
-        transform: rotate(-30deg);
-      }
-
-      .hoja.derecha {
-        left: 20px;
-        transform: rotate(30deg);
-      }
-
-      .hoja.izquierda {
-        right: 20px;
-        transform: rotate(-30deg);
-      }
-
-      /* MENSAJE */
       .mensaje {
         margin-top: 20px;
         font-size: 1.5rem;
@@ -166,28 +64,157 @@
   <body>
     <header>🌻 Feliz 21 de Septiembre 🌻</header>
 
-    <div class="flor">
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="petalo"></div>
-      <div class="centro"></div>
-    </div>
+    <!-- Girasol con SVG -->
+    <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- Pétalos -->
+      <g id="petalos">
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(0 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(30 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(60 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(90 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(120 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(150 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(180 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(210 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(240 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(270 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(300 100 100)"
+        />
+        <ellipse
+          cx="100"
+          cy="70"
+          rx="15"
+          ry="50"
+          fill="#FFD700"
+          transform="rotate(330 100 100)"
+        />
+      </g>
 
-    <div class="tallo">
-      <div class="hoja izquierda"></div>
-      <div class="hoja derecha"></div>
-    </div>
+      <!-- Centro del girasol -->
+      <circle cx="100" cy="100" r="35" fill="saddlebrown" />
 
-    <div class="mensaje">💛 Te regalo esta flor amarilla 💛</div>
+      <!-- Tallo -->
+      <rect x="90" y="135" width="20" height="150" fill="green" rx="10" />
+
+      <!-- Hojas -->
+      <ellipse
+        cx="65"
+        cy="200"
+        rx="40"
+        ry="20"
+        fill="green"
+        transform="rotate(-20 65 200)"
+      />
+      <ellipse
+        cx="135"
+        cy="230"
+        rx="40"
+        ry="20"
+        fill="green"
+        transform="rotate(20 135 230)"
+      />
+    </svg>
+
+    <div class="mensaje">💛 Te regalo este girasol animado 💛</div>
 
     <button onclick="mostrarSorpresa()">✨ Ver Mensaje ✨</button>
 
     <script>
+      // Animación con GSAP
+      gsap.to("#petalos ellipse", {
+        scale: 1.1,
+        transformOrigin: "center center",
+        yoyo: true,
+        repeat: -1,
+        duration: 1.5,
+        stagger: 0.1,
+        ease: "power1.inOut",
+      });
+
+      gsap.to("circle", {
+        scale: 1.05,
+        transformOrigin: "center center",
+        yoyo: true,
+        repeat: -1,
+        duration: 2,
+      });
+
       function mostrarSorpresa() {
         const mensaje = document.querySelector(".mensaje");
         mensaje.innerHTML =
