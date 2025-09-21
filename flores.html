@@ -8,9 +8,9 @@
       body {
         margin: 0;
         font-family: "Segoe UI", sans-serif;
-        background: radial-gradient(circle at center, #1a1a1a, #000000);
-        color: white;
+        background: linear-gradient(to bottom, #000000, #1a1a1a);
         text-align: center;
+        color: #ffd700;
         overflow-x: hidden;
       }
 
@@ -18,85 +18,94 @@
         padding: 20px;
         font-size: 2rem;
         font-weight: bold;
-        color: #ffd700;
         animation: brillar 2s infinite alternate;
       }
 
       @keyframes brillar {
         from {
-          text-shadow: 0 0 5px #ffd700;
+          text-shadow: 0 0 10px #ffd700;
         }
         to {
           text-shadow: 0 0 20px #ffff99, 0 0 30px #ffd700;
         }
       }
 
-      /* Flor animada */
+      /* CONTENEDOR DE LA FLOR */
       .flor {
         position: relative;
-        width: 150px;
-        height: 150px;
-        margin: 50px auto;
-        animation: girar 10s linear infinite;
+        width: 200px;
+        height: 200px;
+        margin: 40px auto;
+        animation: flotar 3s ease-in-out infinite alternate;
       }
 
+      @keyframes flotar {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-15px);
+        }
+      }
+
+      /* PÉTALOS */
       .petalo {
         position: absolute;
         width: 80px;
         height: 120px;
         background: #ffd700;
-        border-radius: 50% 50% 0 0;
-        transform-origin: bottom center;
-        top: 15px;
-        left: 35px;
-        animation: abrir 3s ease-in-out infinite alternate;
-        box-shadow: 0 0 15px rgba(255, 223, 0, 0.6);
-      }
-
-      .petalo:nth-child(2) {
-        transform: rotate(60deg);
-      }
-      .petalo:nth-child(3) {
-        transform: rotate(120deg);
-      }
-      .petalo:nth-child(4) {
-        transform: rotate(180deg);
-      }
-      .petalo:nth-child(5) {
-        transform: rotate(240deg);
-      }
-      .petalo:nth-child(6) {
-        transform: rotate(300deg);
-      }
-
-      @keyframes abrir {
-        from {
-          transform: scaleY(0.7);
-        }
-        to {
-          transform: scaleY(1);
-        }
-      }
-
-      .centro {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        background: #5b3b00;
         border-radius: 50%;
         top: 40px;
-        left: 40px;
-        box-shadow: inset 0 0 15px #2d1a00;
+        left: 60px;
+        transform-origin: bottom center;
+        box-shadow: 0 0 15px rgba(255, 223, 0, 0.7);
       }
 
-      /* Tallo */
+      .petalo:nth-child(1) {
+        transform: rotate(0deg) translateY(-60px);
+      }
+      .petalo:nth-child(2) {
+        transform: rotate(45deg) translateY(-60px);
+      }
+      .petalo:nth-child(3) {
+        transform: rotate(90deg) translateY(-60px);
+      }
+      .petalo:nth-child(4) {
+        transform: rotate(135deg) translateY(-60px);
+      }
+      .petalo:nth-child(5) {
+        transform: rotate(180deg) translateY(-60px);
+      }
+      .petalo:nth-child(6) {
+        transform: rotate(225deg) translateY(-60px);
+      }
+      .petalo:nth-child(7) {
+        transform: rotate(270deg) translateY(-60px);
+      }
+      .petalo:nth-child(8) {
+        transform: rotate(315deg) translateY(-60px);
+      }
+
+      /* CENTRO DE LA FLOR */
+      .centro {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: #5b3b00;
+        border-radius: 50%;
+        top: 50px;
+        left: 50px;
+        box-shadow: inset 0 0 20px #2d1a00;
+      }
+
+      /* TALLO */
       .tallo {
-        width: 15px;
-        height: 200px;
+        width: 20px;
+        height: 250px;
         background: green;
-        margin: -50px auto 20px auto;
+        margin: auto;
         border-radius: 10px;
-        animation: crecer 3s ease-out forwards;
+        animation: crecer 2s ease-out forwards;
       }
 
       @keyframes crecer {
@@ -104,21 +113,42 @@
           height: 0;
         }
         to {
-          height: 200px;
+          height: 250px;
         }
       }
 
-      /* Mensaje */
+      /* HOJAS */
+      .hoja {
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        background: green;
+        border-radius: 50%;
+        top: 100px;
+        transform: rotate(-30deg);
+      }
+
+      .hoja.derecha {
+        left: 20px;
+        transform: rotate(30deg);
+      }
+
+      .hoja.izquierda {
+        right: 20px;
+        transform: rotate(-30deg);
+      }
+
+      /* MENSAJE */
       .mensaje {
         margin-top: 20px;
         font-size: 1.5rem;
-        color: #ffd700;
         font-weight: bold;
+        color: #ffd700;
       }
 
       button {
-        margin-top: 30px;
-        padding: 10px 20px;
+        margin-top: 20px;
+        padding: 12px 25px;
         border: none;
         border-radius: 10px;
         font-size: 1.2rem;
@@ -143,11 +173,17 @@
       <div class="petalo"></div>
       <div class="petalo"></div>
       <div class="petalo"></div>
+      <div class="petalo"></div>
+      <div class="petalo"></div>
       <div class="centro"></div>
     </div>
-    <div class="tallo"></div>
 
-    <div class="mensaje">Con todo mi amor te regalo esta flor amarilla 💛</div>
+    <div class="tallo">
+      <div class="hoja izquierda"></div>
+      <div class="hoja derecha"></div>
+    </div>
+
+    <div class="mensaje">💛 Te regalo esta flor amarilla 💛</div>
 
     <button onclick="mostrarSorpresa()">✨ Ver Mensaje ✨</button>
 
