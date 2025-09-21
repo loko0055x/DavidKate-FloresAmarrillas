@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>🌻 Girasol Realista en el Espacio 🌌</title>
+    <title>🌻 Girasol Creciendo</title>
     <style>
       body {
         margin: 0;
@@ -26,34 +26,29 @@
     </style>
   </head>
   <body>
-    <!-- Fondo con estrellas/meteoritos -->
+    <!-- Fondo -->
     <canvas id="espacio"></canvas>
-
-    <!-- Escena 3D -->
+    <!-- Girasol -->
     <canvas class="threejs"></canvas>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-      // ============================
-      // Fondo de estrellas
-      // ============================
+      // ===== FONDO ESTRELLADO =====
       const canvas = document.getElementById("espacio");
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      let estrellas = [];
-      for (let i = 0; i < 120; i++) {
-        estrellas.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2,
-          speed: Math.random() * 2 + 1,
-        });
-      }
+      const estrellas = Array.from({ length: 100 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 2 + 1,
+      }));
 
       function animarEspacio() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        ctx.fillStyle = "rgba(0,0,0,0.3)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "white";
         estrellas.forEach((e) => {
@@ -71,9 +66,7 @@
       }
       animarEspacio();
 
-      // ============================
-      // Girasol en Three.js
-      // ============================
+      // ===== ESCENA 3D =====
       const threeCanvas = document.querySelector(".threejs");
       const renderer = new THREE.WebGLRenderer({
         canvas: threeCanvas,
@@ -91,57 +84,77 @@
       );
       camera.position.z = 6;
 
-      // Luz
-      const light = new THREE.PointLight(0xffffff, 2);
-      light.position.set(10, 10, 10);
-      scene.add(light);
-      scene.add(new THREE.AmbientLight(0x404040, 1.5));
+      // Luces
+      const pointLight = new THREE.PointLight(0xffffff, 2, 100);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
 
-      // Centro del girasol
-      const centroGeo = new THREE.SphereGeometry(0.5, 32, 32);
-      const centroMat = new THREE.MeshStandardMaterial({
-        color: 0x654321,
-        roughness: 0.8,
-      });
-      const centro = new THREE.Mesh(centroGeo, centroMat);
-      scene.add(centro);
+      // ===== CREAR GIRASOL =====
+      function crearGirasol() {
+        const grupo = new THREE.Group();
 
-      // Pétalos
-      const petalos = [];
-      const petaloGeo = new THREE.ConeGeometry(0.15, 1, 16);
-      const petaloMat = new THREE.MeshStandardMaterial({ color: 0xffd700 });
-      for (let i = 0; i < 30; i++) {
-        const petalo = new THREE.Mesh(petaloGeo, petaloMat);
-        const angulo = (i / 30) * Math.PI * 2;
-        petalo.position.set(Math.cos(angulo) * 1, Math.sin(angulo) * 1, 0);
-        petalo.lookAt(0, 0, 0);
-        petalo.rotation.z += Math.PI;
-        scene.add(petalo);
-        petalos.push(petalo);
+        // Centro
+        const centroGeo = new THREE.SphereGeometry(0.5, 32, 32);
+        const centroMat = new THREE.MeshStandardMaterial({ color: 0x654321 });
+        const centro = new THREE.Mesh(centroGeo, centroMat);
+        centro.scale.set(0, 0, 0); // empieza oculto
+        grupo.add(centro);
+
+        // Pétalos
+        const petaloGeo = new THREE.ConeGeometry(0.15, 1, 16);
+        const petaloMat = new THREE.MeshStandardMaterial({ color: 0xffd700 });
+        const petalos = [];
+
+        for (let i = 0; i < 30; i++) {
+          const petalo = new THREE.Mesh(petaloGeo, petaloMat);
+          const angulo = (i / 30) * Math.PI * 2;
+          petalo.position.set(Math.cos(angulo) * 1, Math.sin(angulo) * 1, 0);
+          petalo.lookAt(0, 0, 0);
+          petalo.rotation.z += Math.PI;
+          petalo.scale.set(0, 0, 0); // oculto al inicio
+          grupo.add(petalo);
+          petalos.push(petalo);
+        }
+
+        scene.add(grupo);
+
+        // Animaciones
+        gsap.to(centro.scale, {
+          x: 1,
+          y: 1,
+          z: 1,
+          duration: 1,
+          ease: "back.out(2)",
+        });
+        gsap.to(
+          petalos.map((p) => p.scale),
+          {
+            x: 1,
+            y: 1,
+            z: 1,
+            duration: 1,
+            ease: "back.out(2)",
+            stagger: 0.1,
+            delay: 0.5,
+          }
+        );
+
+        return grupo;
       }
 
-      // Tallo
-      const talloGeo = new THREE.CylinderGeometry(0.1, 0.15, 3, 16);
-      const talloMat = new THREE.MeshStandardMaterial({ color: 0x228b22 });
-      const tallo = new THREE.Mesh(talloGeo, talloMat);
-      tallo.position.y = -2;
-      scene.add(tallo);
+      const girasol = crearGirasol();
 
-      // Animación
+      // ===== ANIMAR =====
       function animate() {
         requestAnimationFrame(animate);
-        centro.rotation.y += 0.002;
-
-        // Movimiento suave de pétalos
-        petalos.forEach((p, i) => {
-          p.rotation.x = Math.sin(Date.now() * 0.002 + i) * 0.1;
-        });
-
+        girasol.rotation.y += 0.005; // giro lento
+        girasol.rotation.x = Math.sin(Date.now() * 0.001) * 0.05; // efecto "respirar"
         renderer.render(scene, camera);
       }
       animate();
 
-      // Ajustar pantalla
+      // ===== RESPONSIVE =====
       window.addEventListener("resize", () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
